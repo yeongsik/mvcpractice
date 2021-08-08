@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<!--    헤더 : css , js , Jquery -->
+    <meta charset="UTF-8">
+    <title>개발자 코멘트 모음</title>
+
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>코멘트 모음</h1>
+            <div class="users-wrapper">
+                <div class="github-login">
+
+                </div>
+                <button class="btn write-form" th:onclick="|location.href='@{/post/add}'|">글쓰기</button>
+            </div>
+        </div>
+        <div class="main-content-container">
+            <div class="content-wrapper" th:each="post : ${posts}">
+                <div class="content" th:text="${post.author}">작성자</div>
+                <div class="author" th:text="${post.content}">내용</div>
+                <button class="btn more" th:onclick="|location.href='@{/post/${post.id}}'|">더보기</button>
+            </div>
+        </div>
+    </div>
+<footer>
+<!--  개인 정보 -->
+</footer>
+</body>
+</html>
