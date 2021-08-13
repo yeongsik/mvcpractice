@@ -6,28 +6,24 @@ import spring.mvcpractice.Post.BaseTimeEntity;
 import javax.persistence.*;
 
 @Getter
+@Builder
 @ToString
 @AllArgsConstructor
 @NoArgsConstructor
 @Entity
-public class Post extends BaseTimeEntity {
+public class User extends BaseTimeEntity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "post_id")
+    @Column(name = "user_id")
     private Long id;
 
-    private String content;
+    @Column(nullable = false)
+    private String emailId;
 
     private String userName;
 
-    public void update(String content) {
-        this.content = content;
-    }
+    private Long password;
 
-    @Builder
-    public Post(String content, String userName) {
-        this.content=content;
-        this.userName = userName;
-    }
+
 }

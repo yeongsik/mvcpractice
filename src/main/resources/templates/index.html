@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <!--    헤더 : css , js , Jquery -->
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <title>Comment for YS</title>
+    <link rel="stylesheet" th:href="@{/css/main.css}">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300&display=swap" rel="stylesheet">
+    <script src="https://kit.fontawesome.com/4afd1aef06.js" crossorigin="anonymous"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+    <script th:src="@{/js/addLayer.js}" src="/static/js/addLayer.js"></script>
+</head>
+<body>
+<div class="container">
+    <div class="header">
+        <h1>Comment를 남겨주세요!</h1>
+        <div class="users-wrapper">
+            <div class="github-login">
+                <i class="fab fa-github-square github-icon"></i>
+            </div>
+            <button th:if="${session.loginUser != null}" class="btn write-form" id="modal-btn">글쓰기</button>
+            <button th:if="${session.loginUser != null}" class="btn write-form" id="logout-btn"
+                    th:onclick="|location.href='@{/user/out}'|">로그아웃</button>
+            <button th:if="${session.loginUser == null}" class="btn write-form" id="login-btn"
+                    th:onclick="|location.href='@{/user}'|">로그인</button>
+        </div>
+    </div>
+    <div class="main-content-container" th:if="${posts}">
+        <div class="content-wrapper"  th:each="post : ${posts}">
+            <div class="userName" th:text="${post.userName}">작성자</div>
+            <div class="content" th:text="${post.content}">내용</div>
+            <div class="createdDate" th:text="${#temporals.format(post.createdDate,'dd-MM-yyyy')}"></div>
+            <div class="btn-wrapper">
+                <button class="btn-comment more" th:onclick="|location.href='@{/post/${post.id}}'|">더보기</button>
+                <button class="btn-comment update" th:onclick="">글수정</button>
+                <button class="btn-comment delete" th:onclick="">글삭제</button>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="addLayer" id="addLayer">
+    <form th:action="@{/post/add}" method="post">
+        <div class="addLayer-container">
+            <h1>글 등록</h1>
+            <div class="addAuthor-wrapper">
+                <label for="addUserName">작성자</label>
+                <input type="text" id="addUserName" name="userName" placeholder="작성자 입력하세요">
+            </div>
+            <textarea class="addContent" name="content" placeholder="내용을 입력하세요."></textarea>
+            <button  class="btn-comment add-btn" type="submit">등록</button>
+            <button  class="btn-comment add-btn" type="button" id="addCancel">취소</button>
+        </div>
+    </form>
+</div>
+<footer>
+    <!--  개인 정보 -->
+</footer>
+</body>
+</html>

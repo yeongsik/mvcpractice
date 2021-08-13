@@ -4,13 +4,11 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
-import spring.mvcpractice.Post.domain.Post;
-
-import java.util.List;
+import spring.mvcpractice.Post.domain.User;
 
 @Repository
-public interface PostRepository extends JpaRepository<Post,Long> {
+public interface UserRepository extends JpaRepository<User , Long> {
 
-   @Query("select p from Post p where p.userName = :#{#postUserName.userName}")
-   List<Post> findByUserName(@Param("postUserName") Post post);
+    @Query("select u from User u where u.emailId= :#{#user.emailId} and u.password= :#{#user.password}")
+    User logIn (@Param("user") User user);
 }

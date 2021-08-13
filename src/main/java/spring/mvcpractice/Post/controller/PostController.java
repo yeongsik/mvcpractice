@@ -2,26 +2,33 @@ package spring.mvcpractice.Post.controller;
 
 
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.*;
 import spring.mvcpractice.Post.domain.Post;
-import spring.mvcpractice.Post.service.PostService;
-
-import java.util.List;
-
+import spring.mvcpractice.Post.dto.PostSaveRequestDto;
+import spring.mvcpractice.Post.service.PostServicInterface;
+@Slf4j
+@RequestMapping("/post")
 @RequiredArgsConstructor
 @Controller
 public class PostController {
 
-    private final PostService postService;
+    private final PostServicInterface ps;
 
+    @PostMapping("/add")
+    public String add(@ModelAttribute PostSaveRequestDto post) {
+        Post postEntity = post.toEntity();
+        ps.save(postEntity);
+        return "redirect:/";
+    }
 
-    @GetMapping("/post")
-    public String beforeMain(Model model) {
-        List<Post> posts = postService.findAll();
-        model.addAttribute("posts", posts);
-        return "post";
+    @GetMapping("/{postId}")
+    public String post(@PathVariable long postId, Model model) {
+        Post post = ps.findById(postId);
+        model.addAttribute("post", post);
+        return "post/detail";
     }
 
 
