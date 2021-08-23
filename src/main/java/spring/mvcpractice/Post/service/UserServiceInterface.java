@@ -8,7 +8,7 @@ public interface UserServiceInterface {
 
     List<User> findAll();
 
-    User save(User user);
+    User save(User user) throws Exception;
 
     User findById(Long id);
 

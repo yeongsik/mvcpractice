@@ -25,6 +25,7 @@ public class UserService implements UserServiceInterface{
     @Override
     @Transactional
     public User save(User user) {
+        validateDuplicateUser(user);
         return userRepository.save(user);
     }
 
@@ -39,11 +40,19 @@ public class UserService implements UserServiceInterface{
     @Override
     @Transactional(readOnly = true)
     public User login(User user) {
-        return userRepository.logIn(user);
+        return userRepository.logIn(user)
+                .orElseThrow(() -> new IllegalArgumentException("로그인 실패했습니다."));
     }
 
     @Override
     public void userDelete(Long id) {
         userRepository.deleteById(id);
+    }
+
+    private void validateDuplicateUser(User user)  {
+        User findUser = userRepository.findByEmailId(user.getEmailId());
+        if (findUser != null) {
+            throw new IllegalArgumentException("이미 존재하는 회원");
+        }
     }
 }

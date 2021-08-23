@@ -18,12 +18,11 @@ public class User extends BaseTimeEntity {
     @Column(name = "user_id")
     private Long id;
 
-    @Column(nullable = false)
+    @Column(nullable = false , unique = true)
     private String emailId;
 
     private String userName;
 
     private Long password;
-
 
 }
