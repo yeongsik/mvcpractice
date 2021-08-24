@@ -2,17 +2,26 @@
 <html lang="ko"
       xmlns:th="http://www.thymeleaf.org">
     <header th:fragment="headerFragment" class="row">
-        <div class="col">
-            <img class="logo" th:src="@{/images/logo.png}" src="/static/images/logo.png">
+        <div class="col-md-3 header-icon">
+            <img th:src="@{/images/logo.png}" class="logo">
         </div>
-        <div class="col-6">Comment를 남겨주세요!</div>
-        <div class="col">
-            <i class="fab fa-github-square github-icon"></i>
-            <button th:if="${session.loginUser != null}" class="btn write-form" id="modal-btn">글쓰기</button>
-            <button th:if="${session.loginUser != null}" class="btn write-form" id="logout-btn"
-                    th:onclick="|location.href='@{/user/out}'|">로그아웃</button>
-            <button th:if="${session.loginUser == null}" class="btn write-form" id="login-btn"
-                    th:onclick="|location.href='@{/user}'|">로그인</button>
+        <div class="col-md-6 header-category header-nav">
+            <a th:href="@{/post}" class="h3 category-nav">Comment</a>
+            <a th:href="@{/blog}" class="h3 category-nav" >Blog</a>
+            <a th:href="@{/blog}" class="h3 category-nav" >About</a>
+            <a th:href="@{/blog}" class="h3 category-nav" >Record</a>
+        </div>
+        <div class="col-md-3 header-user header-nav">
+            <div class="g-col">
+                <i class="fab fa-github-square github-icon"></i>
+            </div>
+            <div class="g-col header-nav-btns">
+                <button th:if="${session.loginUser != null}" class="btn btn-primary btn-lg" id="modal-btn">글쓰기</button>
+                <button th:if="${session.loginUser != null}" class="btn btn-primary btn-lg" id="logout-btn"
+                        th:onclick="|location.href='@{/user/out}'|">로그아웃</button>
+                <button type="button" th:if="${session.loginUser == null}" class="btn btn-primary btn-lg" id="login-btn"
+                        th:onclick="|location.href='@{/user}'|">로그인</button>
+            </div>
         </div>
     </header>
 </html>

@@ -1,1 +1,10 @@
+body {
+    padding : 10px;
+}
+a {
+    text-decoration: none;
+}
 
+footer{
+    margin-top : 200px;
+}

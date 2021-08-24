@@ -59,17 +59,30 @@
 </div>-->
 <head>
     <title>DEVYS</title>
-   <!-- <link rel="stylesheet" th:href="@{/css/main.css}">
-    <script th:src="@{/js/addLayer.js}" src="/static/js/addLayer.js"></script>-->
+   <link rel="stylesheet" th:href="@{/css/main.css}">
+    <script th:src="@{/js/addLayer.js}" src="/static/js/addLayer.js"></script>
 </head>
-<div layout:fragment="content">
-    <div class="main-content-container" th:if="${posts}">
-        <div class="content-wrapper"  th:each="post : ${posts}">
+<div layout:fragment="content" class="container-fluid main-content-container">
+<!--    <div class="row" th:if="${posts}">
+        <div class="content-wrapper col-md-4"  th:each="post : ${posts}">
             <div class="userName" th:text="${post.userName}">작성자</div>
             <div class="content" th:text="${post.content}">내용</div>
             <div class="createdDate" th:text="${#temporals.format(post.createdDate,'dd-MM-yyyy')}"></div>
             <div class="btn-wrapper">
-                <button class="btn-comment more" th:onclick="|location.href='@{/post/${post.id}}'|">더보기</button>
+                <button class="btn btn-primary btn-sm more" th:onclick="|location.href='@{/post/${post.id}}'|">더보기</button>
+                <button class="btn-comment update" th:onclick="">글수정</button>
+                <button class="btn-comment delete" th:onclick="">글삭제</button>
+            </div>
+        </div>
+    </div>-->
+    <div class=card-wrapper th:if="${posts}">
+        <div class="card text-dark bg-light mb-3" th:each="post : ${posts}">
+            <div class="card-body">
+                <h2 class="card-title" th:text="${post.userName}">작성자</h2>
+                <h4 class="card-subtitle mb-2 text-muted" th:text="${#temporals.format(post.createdDate,'dd-MM-yyyy')}">날짜</h4>
+                <p class="card-text" th:text="${post.content}">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
+                <a href="#" class="card-link">작성자 깃허브 주소</a>
+                <a href="#" class="card-link">더보기</a>
                 <button class="btn-comment update" th:onclick="">글수정</button>
                 <button class="btn-comment delete" th:onclick="">글삭제</button>
             </div>
